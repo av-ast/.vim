@@ -12,7 +12,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'jeetsukumaran/vim-buffergator'
@@ -120,6 +120,7 @@ au Filetype erlang setlocal shiftwidth=4
 augroup filetypedetect
     au BufRead,BufNewFile *.es6 set filetype=javascript
     au BufRead,BufNewFile *.slim set filetype=slim
+    au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
 augroup END
 
 let g:vim_json_syntax_conceal = 0
