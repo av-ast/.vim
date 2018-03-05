@@ -36,7 +36,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'jiangmiao/auto-pairs'
 Plug '907th/vim-auto-save'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'rking/ag.vim'
 Plug 'akalyaev/vim-erlang-spec', { 'for': 'erlang' }
 
