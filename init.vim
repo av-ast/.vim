@@ -60,6 +60,7 @@ Plug 'roxma/ncm-flow',  { 'for': 'javascript', 'do': 'npm install' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'eugen0329/vim-esearch'
+Plug 'sbdchd/neoformat'
 
 call plug#end()
 
@@ -105,6 +106,7 @@ set encoding=utf8
 set fillchars+=vert:│
 
 set background=light
+" set background=dark
 colorscheme NeoSolarized
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
@@ -121,6 +123,11 @@ augroup filetypedetect
     au BufRead,BufNewFile *.es6 set filetype=javascript
     au BufRead,BufNewFile *.slim set filetype=slim
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+augroup END
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
 let g:vim_json_syntax_conceal = 0
