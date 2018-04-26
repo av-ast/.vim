@@ -126,11 +126,6 @@ augroup filetypedetect
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
 augroup END
 
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-
 let g:vim_json_syntax_conceal = 0
 
 let g:buffergator_viewport_split_policy = "B"
