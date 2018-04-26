@@ -60,7 +60,8 @@ Plug 'roxma/ncm-flow',  { 'for': 'javascript', 'do': 'npm install' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'eugen0329/vim-esearch'
-Plug 'sbdchd/neoformat'
+" Plug 'sbdchd/neoformat'
+Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 
 call plug#end()
 
