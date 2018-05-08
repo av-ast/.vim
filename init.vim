@@ -1,4 +1,5 @@
 " REQUIREMENTS
+" gem install rufo
 " npm install -g eslint jsxhint
 " pip3 install --user neovim jedi psutil setproctitle
 " git clone git://github.com/ten0s/syntaxerl.git && cd syntaxerl && make && cp syntaxerl /usr/local/bin
@@ -62,6 +63,8 @@ Plug 'honza/vim-snippets'
 Plug 'eugen0329/vim-esearch'
 " Plug 'sbdchd/neoformat'
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'ruby-formatter/rufo-vim', { 'for': 'ruby' }
 
 call plug#end()
 
@@ -124,6 +127,7 @@ augroup filetypedetect
     au BufRead,BufNewFile *.es6 set filetype=javascript
     au BufRead,BufNewFile *.slim set filetype=slim
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+    au BufRead,BufNewFile *.hs set filetype=haskell
 augroup END
 
 let g:vim_json_syntax_conceal = 0
@@ -218,3 +222,11 @@ let g:esearch = {
   \ 'batch_size': 1000,
   \ 'use':        ['visual', 'hlsearch', 'last'],
   \}
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
