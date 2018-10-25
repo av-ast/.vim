@@ -3,6 +3,8 @@
 " npm install -g eslint jsxhint
 " pip3 install --user neovim jedi psutil setproctitle
 " git clone git://github.com/ten0s/syntaxerl.git && cd syntaxerl && make && cp syntaxerl /usr/local/bin
+" wget https://raw.githubusercontent.com/z0mbix/sysadmin-tools/master/tfdoc
+" https://z0mbix.io/2018/03/28/quickly-access-terraform-docs-from-the-cli-or-vim/
 
 call plug#begin()
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -65,6 +67,9 @@ Plug 'eugen0329/vim-esearch'
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'ruby-formatter/rufo-vim', { 'for': 'ruby' }
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
+Plug 'neomake/neomake'
 
 call plug#end()
 
@@ -109,8 +114,8 @@ set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set encoding=utf8
 set fillchars+=vert:│
 
-set background=light
-" set background=dark
+" set background=light
+set background=dark
 colorscheme NeoSolarized
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
@@ -128,6 +133,8 @@ augroup filetypedetect
     au BufRead,BufNewFile *.slim set filetype=slim
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
     au BufRead,BufNewFile *.hs set filetype=haskell
+    au BufRead,BufNewFile *.coffee set filetype=coffee
+    au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
 augroup END
 
 let g:vim_json_syntax_conceal = 0
@@ -140,6 +147,17 @@ let g:vim_markdown_folding_disabled = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['eslint', 'jsxhint']
 let g:syntastic_erlang_checkers = ['syntaxerl']
+
+" e.g. :Tfdoc aws_instance
+"      :Tfdoc -d aws_instance
+if executable('tfdoc')
+    command! -nargs=* Tfdoc :call system('tfdoc' . ' ' . <q-args>)
+endif
+
+nnoremap <silent> <Leader>tfr :Tfdoc <C-R><C-W><CR>
+nnoremap <silent> <Leader>tfd :Tfdoc -d <C-R><C-W><CR>
+xnoremap <silent> <Leader>tfr y:Tfdoc <C-R>"<CR>
+xnoremap <silent> <Leader>tfd y:Tfdoc -d <C-R>"<CR>
 
 " Map ctrl-movement keys to window switching
 nmap <C-k> <C-w><Up>
