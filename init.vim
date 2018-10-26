@@ -18,6 +18,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
+Plug 'airblade/vim-gitgutter'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Shougo/echodoc.vim'
@@ -26,7 +27,6 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'Valloric/MatchTagAlways'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
-Plug 'tpope/vim-git'
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'haml', 'slim', 'javascript'] }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'chase/vim-ansible-yaml'
@@ -111,6 +111,7 @@ set hlsearch
 set ignorecase
 set smartcase
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
+set updatetime=100
 set encoding=utf8
 set fillchars+=vert:│
 
@@ -134,6 +135,7 @@ augroup filetypedetect
     au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
     au BufRead,BufNewFile *.hs set filetype=haskell
     au BufRead,BufNewFile *.coffee set filetype=coffee
+    au BufRead,BufNewFile *.csv set filetype=csv
     au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
 augroup END
 
