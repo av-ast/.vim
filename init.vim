@@ -70,6 +70,10 @@ Plug 'ruby-formatter/rufo-vim', { 'for': 'ruby' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
 Plug 'neomake/neomake'
+Plug 'chr4/nginx.vim', { 'for': 'nginx' }
+Plug 'prettier/vim-prettier', {
+      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
+      \ 'do': 'yarn install' }
 
 call plug#end()
 
@@ -137,6 +141,7 @@ augroup filetypedetect
     au BufRead,BufNewFile *.coffee set filetype=coffee
     au BufRead,BufNewFile *.csv set filetype=csv
     au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
+    au BufRead,BufNewFile *.conf set filetype=nginx
 augroup END
 
 let g:vim_json_syntax_conceal = 0
