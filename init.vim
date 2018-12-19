@@ -7,10 +7,11 @@
 " https://z0mbix.io/2018/03/28/quickly-access-terraform-docs-from-the-cli-or-vim/
 
 call plug#begin()
+Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -31,24 +32,23 @@ Plug 'tpope/vim-rails', { 'for': ['ruby', 'haml', 'slim', 'javascript'] }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'chase/vim-ansible-yaml'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'vim-scripts/paredit.vim'
+" Plug 'vim-scripts/paredit.vim'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'bogado/file-line'
 
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jiangmiao/auto-pairs'
-Plug '907th/vim-auto-save'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'mhinz/vim-signify'
 Plug 'rking/ag.vim'
-Plug 'akalyaev/vim-erlang-spec', { 'for': 'erlang' }
+" Plug 'akalyaev/vim-erlang-spec', { 'for': 'erlang' }
 
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'jgdavey/tslime.vim'
-Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
-Plug 'vim-erlang/vim-erlang-compiler', { 'for': 'erlang' }
-Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
-Plug 'vim-erlang/vim-erlang-tags', { 'for': 'erlang' }
+" Plug 'jgdavey/tslime.vim'
+" Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
+" Plug 'vim-erlang/vim-erlang-compiler', { 'for': 'erlang' }
+" Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
+" Plug 'vim-erlang/vim-erlang-tags', { 'for': 'erlang' }
 Plug 'easymotion/vim-easymotion'
 Plug 'iCyMind/NeoSolarized'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
@@ -56,13 +56,11 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
 
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/nvim-cm-tern',  { 'for': 'javascript', 'do': 'npm install' }
-Plug 'roxma/ncm-flow',  { 'for': 'javascript', 'do': 'npm install' }
+" Plug 'roxma/nvim-completion-manager'
+" Plug 'roxma/nvim-cm-tern',  { 'for': 'javascript', 'do': 'npm install' }
+" Plug 'roxma/ncm-flow',  { 'for': 'javascript', 'do': 'npm install' }
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'eugen0329/vim-esearch'
+" Plug 'eugen0329/vim-esearch'
 " Plug 'sbdchd/neoformat'
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -71,9 +69,9 @@ Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
 Plug 'neomake/neomake'
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
-Plug 'prettier/vim-prettier', {
-      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
-      \ 'do': 'yarn install' }
+" Plug 'prettier/vim-prettier', {
+"       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
+"       \ 'do': 'yarn install' }
 
 call plug#end()
 
@@ -118,12 +116,13 @@ set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set updatetime=100
 set encoding=utf8
 set fillchars+=vert:│
+set signcolumn=yes
 
 " set background=light
 set background=dark
 colorscheme NeoSolarized
 
-let g:auto_save = 1  " enable AutoSave on Vim startup
+" let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " https://github.com/vim/vim/blob/master/runtime/doc/russian.txt
 " Enable hotkeys for Russian layout
@@ -155,6 +154,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_javascript_checkers = ['eslint', 'jsxhint']
 let g:syntastic_erlang_checkers = ['syntaxerl']
 
+" TERRAFORM
 " e.g. :Tfdoc aws_instance
 "      :Tfdoc -d aws_instance
 if executable('tfdoc')
@@ -230,9 +230,9 @@ vnoremap ˚ :m '<-2<CR>gv=gv
 
 " set iskeyword-=_
 
-nnoremap <leader>s :ErlangSpec<CR>
+" nnoremap <leader>s :ErlangSpec<CR>
 
-let g:rspec_command = 'call Send_to_Tmux("spring rspec {spec}\n")'
+" let g:rspec_command = 'call Send_to_Tmux("spring rspec {spec}\n")'
 
 " vim-rspec mappings
 " map <Leader>t :call RunCurrentSpecFile()<CR>
@@ -255,3 +255,111 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+""""""""""""""""""
+""""""" COC """"""
+""""""""""""""""""
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+
+" Add diagnostic info for https://github.com/itchyny/lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+
+" Shortcuts for denite interface
+" Show extension list
+nnoremap <silent> <space>e  :<C-u>Denite coc-extension<cr>
+" Show symbols of current buffer
+nnoremap <silent> <space>o  :<C-u>Denite coc-symbols<cr>
+" Search symbols of current workspace
+nnoremap <silent> <space>t  :<C-u>Denite coc-workspace<cr>
+" Show diagnostics of current workspace
+nnoremap <silent> <space>a  :<C-u>Denite coc-diagnostic<cr>
+" Show available commands
+nnoremap <silent> <space>c  :<C-u>Denite coc-command<cr>
+" Show available services
+nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
+" Show links of current buffer
+nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr><Paste>
