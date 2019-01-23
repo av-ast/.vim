@@ -8,6 +8,7 @@
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+Plug 'Shougo/denite.nvim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -72,6 +73,9 @@ Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 " Plug 'prettier/vim-prettier', {
 "       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
 "       \ 'do': 'yarn install' }
+Plug 'Olical/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
 call plug#end()
 
@@ -141,6 +145,7 @@ augroup filetypedetect
     au BufRead,BufNewFile *.csv set filetype=csv
     au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
     au BufRead,BufNewFile *.conf set filetype=nginx
+    au BufRead,BufNewFile *.scm set filetype=scheme
 augroup END
 
 let g:vim_json_syntax_conceal = 0
@@ -363,3 +368,15 @@ nnoremap <silent> <space>c  :<C-u>Denite coc-command<cr>
 nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
 " Show links of current buffer
 nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr><Paste>
+
+" SCHEME RELATED STUFF
+" Starts the REPL.
+autocmd FileType scheme nnoremap <buffer> <localleader>rc :SchemeConnect<cr>
+
+" Evaluates the outer most / top level form and jumps the cursor back to where it was.
+autocmd FileType scheme nnoremap <buffer> <localleader>re :normal mscpaF<cr>`s
+
+" Evaluates the entire file.
+autocmd FileType scheme nnoremap <buffer> <localleader>rf :normal msggcpG<cr>`s
+
+let g:scheme_split_size = -10
