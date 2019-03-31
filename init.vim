@@ -1,4 +1,5 @@
 " REQUIREMENTS
+" brew install ack
 " gem install rufo
 " npm install -g eslint jsxhint
 " pip3 install --user neovim jedi psutil setproctitle
@@ -12,19 +13,19 @@ Plug 'Shougo/denite.nvim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
-" Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Shougo/echodoc.vim'
-
+Plug 'dyng/ctrlsf.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'Valloric/MatchTagAlways'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -61,8 +62,6 @@ Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
 " Plug 'roxma/nvim-cm-tern',  { 'for': 'javascript', 'do': 'npm install' }
 " Plug 'roxma/ncm-flow',  { 'for': 'javascript', 'do': 'npm install' }
 
-" Plug 'eugen0329/vim-esearch'
-" Plug 'sbdchd/neoformat'
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'ruby-formatter/rufo-vim', { 'for': 'ruby' }
@@ -146,6 +145,7 @@ augroup filetypedetect
     au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
     au BufRead,BufNewFile *.conf set filetype=nginx
     au BufRead,BufNewFile *.scm set filetype=scheme
+    au BufRead,BufNewFile *.py,*.pyc set filetype=python
 augroup END
 
 let g:vim_json_syntax_conceal = 0
@@ -380,3 +380,15 @@ autocmd FileType scheme nnoremap <buffer> <localleader>re :normal mscpaF<cr>`s
 autocmd FileType scheme nnoremap <buffer> <localleader>rf :normal msggcpG<cr>`s
 
 let g:scheme_split_size = -10
+
+" FZF
+nmap <C-p> :FZF<CR>
+
+" CtrlSF
+nmap <C-F>f <Plug>CtrlSFPrompt
+nmap <C-F>n <Plug>CtrlSFCwordPath
+nmap <C-F>p <Plug>CtrlSFPwordPath<Paste>
+
+let g:ctrlsf_auto_focus = {
+    \ "at": "start"
+    \ }
