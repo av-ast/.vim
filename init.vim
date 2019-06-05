@@ -121,8 +121,8 @@ set encoding=utf8
 set fillchars+=vert:│
 set signcolumn=yes
 
-" set background=light
-set background=dark
+set background=light
+" set background=dark
 colorscheme NeoSolarized
 
 " let g:auto_save = 1  " enable AutoSave on Vim startup
