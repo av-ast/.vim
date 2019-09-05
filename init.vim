@@ -1,11 +1,12 @@
 " REQUIREMENTS
-" brew install ack
+" brew install ack rust
 " gem install rufo
 " npm install -g eslint jsxhint
 " pip3 install --user neovim jedi psutil setproctitle
 " git clone git://github.com/ten0s/syntaxerl.git && cd syntaxerl && make && cp syntaxerl /usr/local/bin
 " wget https://raw.githubusercontent.com/z0mbix/sysadmin-tools/master/tfdoc
 " https://z0mbix.io/2018/03/28/quickly-access-terraform-docs-from-the-cli-or-vim/
+" cargo install racer
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
@@ -75,8 +76,13 @@ Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 Plug 'Olical/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+" Plug 'zxqfl/tabnine-vim'
 
 call plug#end()
+
+let mapleader = "\<Space>"
 
 filetype off
 filetype plugin indent on
@@ -146,6 +152,9 @@ augroup filetypedetect
     au BufRead,BufNewFile *.conf set filetype=nginx
     au BufRead,BufNewFile *.scm set filetype=scheme
     au BufRead,BufNewFile *.py,*.pyc set filetype=python
+    au BufRead,BufNewFile *.rs set filetype=rust
+    au BufRead,BufNewFile *.toml set filetype=toml
+    au BufRead,BufNewFile *.rb,Vagrantfile set filetype=ruby
 augroup END
 
 let g:vim_json_syntax_conceal = 0
