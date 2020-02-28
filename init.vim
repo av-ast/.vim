@@ -11,7 +11,6 @@
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
 Plug 'Shougo/denite.nvim'
-Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
@@ -34,8 +33,6 @@ Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'haml', 'slim', 'javascript'] }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'chase/vim-ansible-yaml'
-Plug 'kien/rainbow_parentheses.vim'
-" Plug 'vim-scripts/paredit.vim'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'bogado/file-line'
 
@@ -47,21 +44,11 @@ Plug 'rking/ag.vim'
 " Plug 'akalyaev/vim-erlang-spec', { 'for': 'erlang' }
 
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-" Plug 'jgdavey/tslime.vim'
-" Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
-" Plug 'vim-erlang/vim-erlang-compiler', { 'for': 'erlang' }
-" Plug 'vim-erlang/vim-erlang-omnicomplete', { 'for': 'erlang' }
-" Plug 'vim-erlang/vim-erlang-tags', { 'for': 'erlang' }
 Plug 'easymotion/vim-easymotion'
 Plug 'iCyMind/NeoSolarized'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
-
-" Plug 'roxma/nvim-completion-manager'
-" Plug 'roxma/nvim-cm-tern',  { 'for': 'javascript', 'do': 'npm install' }
-" Plug 'roxma/ncm-flow',  { 'for': 'javascript', 'do': 'npm install' }
 
 Plug 'ngmy/vim-rubocop', { 'for': 'ruby' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -70,15 +57,19 @@ Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'juliosueiras/vim-terraform-completion', { 'for': 'terraform' }
 Plug 'neomake/neomake'
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
+
+Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
 " Plug 'prettier/vim-prettier', {
 "       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
 "       \ 'do': 'yarn install' }
-Plug 'Olical/vim-scheme', { 'for': 'scheme', 'on': 'SchemeConnect' }
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
-" Plug 'zxqfl/tabnine-vim'
 
 call plug#end()
 
@@ -126,6 +117,8 @@ set updatetime=100
 set encoding=utf8
 set fillchars+=vert:│
 set signcolumn=yes
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
 set background=light
 " set background=dark
@@ -137,10 +130,6 @@ colorscheme NeoSolarized
 " Enable hotkeys for Russian layout
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 
-au Filetype erlang setlocal tabstop=4
-au Filetype erlang setlocal softtabstop=4
-au Filetype erlang setlocal shiftwidth=4
-
 augroup filetypedetect
     au BufRead,BufNewFile *.es6 set filetype=javascript
     au BufRead,BufNewFile *.slim set filetype=slim
@@ -150,12 +139,19 @@ augroup filetypedetect
     au BufRead,BufNewFile *.csv set filetype=csv
     au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
     au BufRead,BufNewFile *.conf set filetype=nginx
-    au BufRead,BufNewFile *.scm set filetype=scheme
     au BufRead,BufNewFile *.py,*.pyc set filetype=python
     au BufRead,BufNewFile *.rs set filetype=rust
     au BufRead,BufNewFile *.toml set filetype=toml
     au BufRead,BufNewFile *.rb,Vagrantfile set filetype=ruby
+    au BufRead,BufNewFile *.go set filetype=go
 augroup END
+
+au Filetype erlang setlocal tabstop=4
+au Filetype erlang setlocal softtabstop=4
+au Filetype erlang setlocal shiftwidth=4
+au Filetype go setlocal tabstop=4
+au Filetype go setlocal softtabstop=4
+au Filetype go setlocal shiftwidth=4
 
 let g:vim_json_syntax_conceal = 0
 
@@ -163,10 +159,6 @@ let g:buffergator_viewport_split_policy = "B"
 let g:buffergator_sort_regime = "mru"
 
 let g:vim_markdown_folding_disabled = 1
-
-let g:syntastic_check_on_open = 1
-let g:syntastic_javascript_checkers = ['eslint', 'jsxhint']
-let g:syntastic_erlang_checkers = ['syntaxerl']
 
 " TERRAFORM
 " e.g. :Tfdoc aws_instance
@@ -207,6 +199,7 @@ nmap <leader>l mQviwu`Q
 nmap <C-\> :NERDTreeFind<CR>
 nmap <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=25
+let g:NERDTreeIgnore = ['^node_modules$']
 
 nmap <silent> // :nohlsearch<CR>
 noremap ,hl :set hlsearch! hlsearch?<CR>
@@ -361,6 +354,16 @@ let g:lightline = {
       \ },
       \ }
 
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-lists',
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-go',
+  \ 'coc-solargraph',
+  \ ]
 
 " Shortcuts for denite interface
 " Show extension list
@@ -378,17 +381,8 @@ nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
 " Show links of current buffer
 nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr><Paste>
 
-" SCHEME RELATED STUFF
-" Starts the REPL.
-autocmd FileType scheme nnoremap <buffer> <localleader>rc :SchemeConnect<cr>
-
-" Evaluates the outer most / top level form and jumps the cursor back to where it was.
-autocmd FileType scheme nnoremap <buffer> <localleader>re :normal mscpaF<cr>`s
-
-" Evaluates the entire file.
-autocmd FileType scheme nnoremap <buffer> <localleader>rf :normal msggcpG<cr>`s
-
-let g:scheme_split_size = -10
+" Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " FZF
 nmap <C-p> :FZF<CR>
@@ -401,3 +395,5 @@ nmap <C-F>p <Plug>CtrlSFPwordPath<Paste>
 let g:ctrlsf_auto_focus = {
     \ "at": "start"
     \ }
+
+let g:go_def_mapping_enabled = 0
