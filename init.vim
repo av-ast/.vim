@@ -10,7 +10,6 @@
 
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
-Plug 'Shougo/denite.nvim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
@@ -28,7 +27,9 @@ Plug 'Shougo/echodoc.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'Valloric/MatchTagAlways'
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown', 'do': 'cd app && yarn install'  }
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'haml', 'slim', 'javascript'] }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
@@ -70,6 +71,8 @@ Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'thinca/vim-ref'
 
 call plug#end()
 
@@ -125,6 +128,7 @@ set background=light
 colorscheme NeoSolarized
 
 " let g:auto_save = 1  " enable AutoSave on Vim startup
+inoremap <Esc> <Esc>:w<CR>
 
 " https://github.com/vim/vim/blob/master/runtime/doc/russian.txt
 " Enable hotkeys for Russian layout
@@ -137,13 +141,15 @@ augroup filetypedetect
     au BufRead,BufNewFile *.hs set filetype=haskell
     au BufRead,BufNewFile *.coffee set filetype=coffee
     au BufRead,BufNewFile *.csv set filetype=csv
-    au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars set filetype=terraform
+    au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars,*.hcl set filetype=terraform
     au BufRead,BufNewFile *.conf set filetype=nginx
     au BufRead,BufNewFile *.py,*.pyc set filetype=python
     au BufRead,BufNewFile *.rs set filetype=rust
     au BufRead,BufNewFile *.toml set filetype=toml
     au BufRead,BufNewFile *.rb,Vagrantfile set filetype=ruby
     au BufRead,BufNewFile *.go set filetype=go
+    au BufRead,BufNewFile *.ts set filetype=typescript
+    au BufRead,BufNewFile *.md set filetype=markdown
 augroup END
 
 au Filetype erlang setlocal tabstop=4
@@ -267,6 +273,8 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 """"""" COC """"""
 """"""""""""""""""
 
+" let g:coc_disable_startup_warning = 1
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -363,23 +371,8 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-go',
   \ 'coc-solargraph',
+  \ 'coc-elixir',
   \ ]
-
-" Shortcuts for denite interface
-" Show extension list
-nnoremap <silent> <space>e  :<C-u>Denite coc-extension<cr>
-" Show symbols of current buffer
-nnoremap <silent> <space>o  :<C-u>Denite coc-symbols<cr>
-" Search symbols of current workspace
-nnoremap <silent> <space>t  :<C-u>Denite coc-workspace<cr>
-" Show diagnostics of current workspace
-nnoremap <silent> <space>a  :<C-u>Denite coc-diagnostic<cr>
-" Show available commands
-nnoremap <silent> <space>c  :<C-u>Denite coc-command<cr>
-" Show available services
-nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
-" Show links of current buffer
-nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr><Paste>
 
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -397,3 +390,7 @@ let g:ctrlsf_auto_focus = {
     \ }
 
 let g:go_def_mapping_enabled = 0
+
+let g:lsc_enable_diagnostics = v:true
+
+nmap <leader>r orequire IEx; IEx.pry<esc>
