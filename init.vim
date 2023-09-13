@@ -13,6 +13,8 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
@@ -36,7 +38,7 @@ Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'chase/vim-ansible-yaml'
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'bogado/file-line'
-
+Plug 'wfxr/protobuf.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
@@ -64,15 +66,18 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' }
+Plug 'Ivo-Donchev/vim-react-goto-definition', { 'for': 'javascript' }
 " Plug 'prettier/vim-prettier', {
 "       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
 "       \ 'do': 'yarn install' }
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+Plug 'mhinz/vim-crates', { 'for': 'rust' }
 Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
 Plug 'thinca/vim-ref'
+Plug 'ekalinin/Dockerfile.vim', { 'for': 'dockerfile' }
 
 call plug#end()
 
@@ -123,8 +128,8 @@ set signcolumn=yes
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-set background=light
-" set background=dark
+" set background=light
+set background=dark
 colorscheme NeoSolarized
 
 " let g:auto_save = 1  " enable AutoSave on Vim startup
@@ -135,21 +140,22 @@ inoremap <Esc> <Esc>:w<CR>
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 
 augroup filetypedetect
-    au BufRead,BufNewFile *.es6 set filetype=javascript
+    au BufRead,BufNewFile *.es6, *.js, *.jsx set filetype=javascript
     au BufRead,BufNewFile *.slim set filetype=slim
-    au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+    au BufRead,BufNewFile *.ex,*.exs,*.eex,*.heex set filetype=elixir
     au BufRead,BufNewFile *.hs set filetype=haskell
     au BufRead,BufNewFile *.coffee set filetype=coffee
     au BufRead,BufNewFile *.csv set filetype=csv
     au BufRead,BufNewFile *.tf,*.tfstate,*.tfvars,*.hcl set filetype=terraform
     au BufRead,BufNewFile *.conf set filetype=nginx
     au BufRead,BufNewFile *.py,*.pyc set filetype=python
-    au BufRead,BufNewFile *.rs set filetype=rust
+    au BufRead,BufNewFile *.rs,Cargo.toml set filetype=rust
     au BufRead,BufNewFile *.toml set filetype=toml
     au BufRead,BufNewFile *.rb,Vagrantfile set filetype=ruby
     au BufRead,BufNewFile *.go set filetype=go
     au BufRead,BufNewFile *.ts set filetype=typescript
     au BufRead,BufNewFile *.md set filetype=markdown
+    au BufRead,BufNewFile Dockerfile* set filetype=dockerfile
 augroup END
 
 au Filetype erlang setlocal tabstop=4
@@ -206,6 +212,18 @@ nmap <C-\> :NERDTreeFind<CR>
 nmap <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=25
 let g:NERDTreeIgnore = ['^node_modules$']
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+                \ 'Modified'  :'✹',
+                \ 'Staged'    :'✚',
+                \ 'Untracked' :'✭',
+                \ 'Renamed'   :'➜',
+                \ 'Unmerged'  :'═',
+                \ 'Deleted'   :'✖',
+                \ 'Dirty'     :'✗',
+                \ 'Ignored'   :'☒',
+                \ 'Clean'     :'✔︎',
+                \ 'Unknown'   :'?',
+                \ }
 
 nmap <silent> // :nohlsearch<CR>
 noremap ,hl :set hlsearch! hlsearch?<CR>
@@ -372,6 +390,8 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-solargraph',
   \ 'coc-elixir',
+  \ 'coc-rust-analyzer',
+  \ 'coc-emmet',
   \ ]
 
 " Prettier
@@ -394,3 +414,12 @@ let g:go_def_mapping_enabled = 0
 let g:lsc_enable_diagnostics = v:true
 
 nmap <leader>r orequire IEx; IEx.pry<esc>
+
+if has('nvim')
+  autocmd BufRead Cargo.toml call crates#toggle()
+endif
+
+highlight Crates ctermfg=green ctermbg=NONE cterm=NONE
+
+" ReactJS
+noremap <silent> gtd :call ReactGotoDef()<CR>
